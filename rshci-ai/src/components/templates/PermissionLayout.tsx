@@ -20,11 +20,11 @@ const PermissionLayout = ({ children, permission, role} : Props) => {
     useEffect (()=> {
         if(user) {
             if(!permission.includes(user.permission)){
-                router.push(`/accounts/sign_in?redirect_to=${pathname}`);
+                router.push(`/dashboard`);
             }
 
             if (user.permission == 'customer' && !role.includes(user.user_info?.role.role_id as 'admin' | 'member')) {
-                router.push (`/accounts/sign_in?redirect_to=${pathname}`);
+                router.push (`/dashboard`);
             }
         }
     },[user]);

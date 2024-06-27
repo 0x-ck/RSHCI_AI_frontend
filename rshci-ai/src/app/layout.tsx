@@ -25,6 +25,7 @@ export default function RootLayout({
         <Suspense>
           <meta  name="keywords" content=""/>
         </Suspense>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
       </head>
       <DefaultLayout >
         {children}
