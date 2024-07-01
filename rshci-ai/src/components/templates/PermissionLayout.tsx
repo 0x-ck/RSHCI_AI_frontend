@@ -26,12 +26,21 @@ const PermissionLayout = ({ children, permission, role} : Props) => {
             if (user.permission == 'customer' && !role.includes(user.user_info?.role.role_id as 'admin' | 'member')) {
                 router.push (`/dashboard`);
             }
+
+            if(user.permission == 'owner' && user.user_info.role.role_id == 'admin') {
+                router.push ('/admin');
+            }
+
+            if(user.permission == 'customer' && user.user_info.role.role_id == 'member') {
+                router.push ('/customers');
+            }
+
         }
     },[user]);
 
-    if (user) {
-        return children;
-    } else return <Loading />;
+    
+    return children;
+  
 };
 
 export default PermissionLayout;
