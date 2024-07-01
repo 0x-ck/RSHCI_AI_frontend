@@ -6,11 +6,10 @@ type State = {
     item: {
         form: {
             id?: number;
-            last_name: string;
-            first_name: string;
-            last_name_furi: string;
-            first_name_furi: string;
+            name:string;
             email: string;
+            password:string;
+            confirm_password:string;
             phone: string;
             role: number;
             is_allowed: boolean;
@@ -34,11 +33,10 @@ const initialState: State = {
     item: {
         form: {
             id: 0,
-            last_name: '',
-            first_name: '',
-            last_name_furi: '',
-            first_name_furi: '',
+            name:'',
             email: '',
+            password:'',
+            confirm_password:'',
             phone: '',
             role: 0,
             is_allowed: true
@@ -59,12 +57,12 @@ const initialState: State = {
 };
 
 export const fetchUsers = createAsyncThunk('user/fetchUsers', async (filter: any) => {
-    const res = await getRequest('/v0/admin/users', filter);
+    const res = await getRequest('/users', filter);
     return res;
 });
 
 export const fetchUser = createAsyncThunk('user/fetchUser', async (id: number) => {
-    const res = await getRequest(`/v0/admin/users/${id}`);
+    const res = await getRequest(`/users/${id}`);
     return res;
 });
 

@@ -6,9 +6,9 @@ import { Children } from "react";
 
 const DashboardPage = () => {
     return (
-            // <PermissionLayout permission={['customer', 'owner', 'super']} role={['admin', 'member']}>
+            <PermissionLayout permission={['customer', 'owner', 'super']} role={['admin', 'member']}>
                 <MainLayout/>
-            // </PermissionLayout>
+            </PermissionLayout>
     );
 };
 
