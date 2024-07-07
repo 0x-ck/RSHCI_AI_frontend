@@ -8,10 +8,10 @@ const Header = () => {
                 <img src="/images/logo/logo.png" alt="" />
             </figure>
             <div className="hidden md:flex flex-row align-middle gap-5 xl:gap-20">
-                <a href="#services" className="font-[400] text-[20px] color-[white] hover:animate-bounce">Services</a>
-                <a href="#system" className="font-[400] text-[20px] color-[white] hover:animate-bounce">System</a>
-                <a href="#benifits" className="font-[400] text-[20px] color-[white] hover:animate-bounce">Benifits</a>
-                <a href="#contact" className="font-[400] text-[20px] color-[white] hover:animate-bounce">Contact</a>
+                <a href="#services" className="font-[400] text-[20px] text-[white] hover:animate-bounce">Services</a>
+                <a href="#system" className="font-[400] text-[20px] text-[white] hover:animate-bounce">System</a>
+                <a href="#benifits" className="font-[400] text-[20px] text-[white] hover:animate-bounce">Benifits</a>
+                <a href="#contact" className="font-[400] text-[20px] text-[white] hover:animate-bounce">Contact</a>
             </div>
             <div className="hidden sm:flex flex-row align-middle gap-[20px]">
                 <SignButton content={"LogIn"}/>
