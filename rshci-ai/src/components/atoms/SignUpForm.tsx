@@ -1,21 +1,38 @@
+"use client";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { setCurrentItemValue } from "@/store/features/user";
+import user, { setCurrentItemValue, setError, setResult,clearCurrentItem } from "@/store/features/user";
 import { appendMessage } from "@/store/features/utils";
+import { postRequest } from "@/utils/axios";
+import { useEffect } from "react";
+import { RootState } from "@/store/store";
 
 const SignUpForm = () => {
   const router = useRouter();
-  const { login } = useAuth();
   const dispatch = useAppDispatch();
 
-  const currentItem = useAppSelector((state) => state.user.item.form);
-  const errors = useAppSelector((state) => state.user.item.errors);
+  const currentItem = useAppSelector(
+    (state: RootState) => state.user.item.form
+  );
+  const errors = useAppSelector((state: RootState) => state.user.item.errors);
+
+  useEffect(() => {
+    console.log(currentItem);
+  }, [currentItem]);
 
   const handlesubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const res = await postRequest(`users/create`, currentItem);
 
-    
+    if (res.status == 200) {
+      clearCurrentItem(res["data"]);
+      router.push("/accounts/sign_in");
+    }
+
+    if (res.status == 400 && res.data.errors) {
+      dispatch(setError(res.data.errors));
+    }
   };
 
   return (
@@ -25,8 +42,10 @@ const SignUpForm = () => {
       </h3>
       <input
         type="text"
-				value={currentItem.name}
-				onChange={e => dispatch(setCurrentItemValue({ name: e.target.value }))}
+        value={currentItem.name}
+        onChange={(e) =>
+          dispatch(setCurrentItemValue({ name: e.target.value }))
+        }
         className="w-full rounded-[5px] p-[10px] bg-[#c5c5c5] border-[#d1a2a2] text-[#111] mb-[20px]"
         placeholder="Name"
       />
@@ -35,8 +54,10 @@ const SignUpForm = () => {
       </h3>
       <input
         type="text"
-				value={currentItem.email}
-				onChange={e=>{dispatch(setCurrentItemValue({email: e.target.value}))}}
+        value={currentItem.email}
+        onChange={(e) => {
+          dispatch(setCurrentItemValue({ email: e.target.value }));
+        }}
         className="w-full rounded-[5px] p-[10px] bg-[#c5c5c5] border-[#d1a2a2] text-[#111] mb-[20px]"
         placeholder="Email"
       />
@@ -45,8 +66,10 @@ const SignUpForm = () => {
       </h3>
       <input
         type="text"
-				value={currentItem.phone}
-				onChange={e=>{dispatch(setCurrentItemValue({phone: e.target.value}))}}
+        value={currentItem.phone}
+        onChange={(e) => {
+          dispatch(setCurrentItemValue({ phone: e.target.value }));
+        }}
         className="w-full rounded-[5px] p-[10px] bg-[#c5c5c5] border-[#d1a2a2] text-[#111] mb-[20px]"
         placeholder="Phone number"
       />
@@ -55,8 +78,10 @@ const SignUpForm = () => {
       </h3>
       <input
         type="password"
-				value={currentItem.password}
-				onChange={e=>{dispatch(setCurrentItemValue({password: e.target.value}))}}
+        value={currentItem.password}
+        onChange={(e) => {
+          dispatch(setCurrentItemValue({ password: e.target.value }));
+        }}
         className="w-full rounded-[5px] p-[10px] bg-[#c5c5c5] border-[#d1a2a2] text-[#111]"
         placeholder="Password"
       />
@@ -65,8 +90,10 @@ const SignUpForm = () => {
       </h3>
       <input
         type="password"
-				value={currentItem.confirm_password}
-				onChange={e=>{dispatch(setCurrentItemValue({confirm_password: e.target.value}))}}
+        value={currentItem.confirm_password}
+        onChange={(e) => {
+          dispatch(setCurrentItemValue({ confirm_password: e.target.value }));
+        }}
         className="w-full rounded-[5px] p-[10px] bg-[#c5c5c5] border-[#d1a2a2] text-[#111]"
         placeholder="Password Confirm"
       />
